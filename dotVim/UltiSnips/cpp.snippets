@@ -1,0 +1,230 @@
+snippet for "General int for loop"
+for (int ${1:i} = 0; $1 < ${3:length}; $1++) {
+	${VISUAL}$0
+}
+endsnippet
+
+snippet forr "reverse for loop"
+for (int ${1:i} = ${2:length} - 1; $1 >= 0; $1++) {
+	${VISUAL}$0
+}
+endsnippet
+
+snippet fun "General function"
+
+/*
+	Purpose: $4
+	Parameters: $5
+	Return Value: $6
+*/
+${1:void} ${2:function_name}(${3}) {
+	${7}
+}
+endsnippet
+
+snippet fun1 "function with one parameter"
+
+/*
+	Purpose: $5
+	Parameters: $6
+	Return Value: $7
+*/
+${1:void} ${2:function_name}(${3:Type} ${4:Paramter}) {
+	${8}
+}
+endsnippet
+
+snippet fun2 "function with two parameter"
+
+/*
+	Purpose: $7
+	Parameters: $8
+	Return Value: $9
+*/
+${1:void} ${2:function_name}(${3:Type} ${4:Paramter}, ${5:Type} ${6:Parameter}) {
+	${10}
+}
+endsnippet
+
+snippet main "Main function with arguments"
+int main (int agrc, char **argv) {
+	$0
+	return 0;
+}
+endsnippet
+
+snippet mainv "Void main function"
+int main (void) {
+	$0
+	return 0;
+}
+endsnippet
+
+snippet if "Basic if statement"
+if ($1) {
+	${2:${VISUAL}}
+}
+endsnippet
+
+snippet ife "If else statement"
+if ($1) {
+	${2:${VISUAL}}
+} else {
+	${0}
+}	
+endsnippet
+
+snippet el "else statement"
+else {
+	${0:${VISUAL}}
+}	
+endsnippet
+
+snippet elif "else if statement"
+else if ($1) {
+	${0:${VISUAL}}
+}
+endsnippet
+
+snippet ifi
+if ($1) $0;
+endsnippet
+
+snippet switch
+switch ($1) {
+	case $2:
+		${3}
+		${4:break;}${5}
+	default:
+		${6}
+}
+endsnippet
+
+snippet ter "ternary"
+${1} ? {2:a} : {3:b}
+endsnippet
+
+snippet while "basic while loop"
+while ($1) {
+	$2
+}
+endsnippet
+
+snippet dowhile "do while loop"
+do {
+	$0
+} while ($1);	
+endsnippet
+
+snippet ph "program header"
+/*
+Program Name : ${1:`!v expand('%:t')`} 
+Authors      : ${2:Kyle Morrison} 
+Date         : ${3:`!v strftime("%a %d %b %Y")`}
+Description  : $4
+*/
+
+$5
+endsnippet
+
+snippet scpp "standard cpp starter header"
+#include <cstdlib>
+#include <iostream>
+#include <ctime>
+#include <fstream>
+#include <vector>
+#include <string>
+
+using namespace std;
+endsnippet
+
+snippet todo "todo statement"
+/*
+TODO: ${2:Kyle Morrison} ${3:`!v strftime("%c")`}
+      ${1:Description}
+*/
+
+snippet doc "docstring"
+
+/*
+	Purpose: $1
+	Parameters: $2
+	Return Value: $3
+*/
+endsnippet 
+
+snippet def "define statment"
+#define
+endsnippet
+
+snippet inc "include library"
+#include <$1>
+endsnippet
+
+snippet inch "include header file"
+#include "$1"
+endsnippet
+
+snippet vector "creates vector"
+vector<${1:int}> $0
+endsnippet
+
+snippet pr "print string with newline"
+std::cout << "$1" << std::endl;
+endsnippet
+
+snippet prv "print string with newline"
+std::cout << "$1: " << $1 << std::endl;
+endsnippet
+
+snippet pri "print no newline"
+std::cout << $1;
+endsnippet
+
+snippet class "class template in h file"
+class ${1:className} {
+
+public:
+	$1();
+	$2
+private:
+	$3;
+};
+endsnippet
+
+snippet dcons "default constructor"
+/*
+	$2
+*/
+${1:`!v expand('%:t:r')`}::$1() {
+	$3
+}
+endsnippet
+
+snippet cons "general constructor"
+/*
+	$3
+*/
+${1:`!v expand('%:t:r')`}::$1($2) {
+	$4
+}
+endsnippet
+
+snippet meth "method template"
+/*
+	Purpose: $4
+	Parameters: $5
+	Return Value: $6
+*/
+${1:int} ${2:`!v expand('%:t:r')`}::${3:methodName} {
+	$7
+}
+endsnippet
+
+snippet struct "Creates basic struct template"
+typedef struct ${1:person} {
+	$3
+} ${2:personType};
+endsnippet
+
+

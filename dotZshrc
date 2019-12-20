@@ -1,0 +1,87 @@
+alias ls='ls -F'
+alias d='dirs -v | head -10'
+alias 1='cd -'
+alias 2='cd -2'
+alias 3='cd -3'
+alias 4='cd -4'
+alias 5='cd -5'
+alias 6='cd -6'
+alias 7='cd -7'
+alias 8='cd -8'
+alias 9='cd -9'
+alias j12="export JAVA_HOME=`/usr/libexec/java_home -v 12.0`; java -version"
+alias j8="export JAVA_HOME=`/usr/libexec/java_home -v 1.8.0_221`; java -version"
+alias kubectlexecv="kubectl exec -it $(kubectl get pods | awk '/vault/ {print $1}') bash"
+export M2_HOME=~/Desktop/maven/apache-maven-3.3.9 
+export M2=$M2_HOME/bin
+export ORACLE_HOME
+export EDITOR=vim
+#alias ls='ls -GF'
+#autoload -Uz compinit && compinit -I for all autocompletition
+autoload -Uz promptinit
+promptinit
+prompt adam1
+#For dynamic displaying of prompt
+setopt prompt_subst
+setopt  auto_cd autopushd #auto directory changing and directory queue
+
+#Smart tab completion
+#autoload -U compinit 
+#compinit
+
+#Enable colors
+autoload -U colors
+colors
+
+bindkey -v 
+bindkey jk vi-cmd-mode
+bindkey -M vicmd ',d' vi-end-of-line 
+bindkey -M vicmd ',s' vi-beginning-of-line 
+bindkey -M vicmd ',a' vi-add-eol
+bindkey -M vicmd ',f' vi-find-prev-char
+bindkey -M vicmd ',w' vi-find-prev-char-skip
+bindkey -M vicmd '?' history-incremental-search-backward
+bindkey -M vicmd '/' history-incremental-search-forward
+bindkey -M vicmd "k" history-beginning-search-backward 
+bindkey -M vicmd "j" history-beginning-search-forward
+
+#updates when mode changes
+#Code for mode indicator persisting over multline zsh prompt found from:
+#http://pawelgoscicki.com/archives/2012/09/vi-mode-indicator-in-zsh-prompt/comment-page-1/
+vim_ins_mode="%{$fg[yellow]%}[INSERT]%{$reset_color%}"
+vim_cmd_mode="%{$fg[red]%}[NORMAL]%{$reset_color%}"
+vim_mode=$vim_ins_mode
+
+function zle-keymap-select {
+  vim_mode="${${KEYMAP/vicmd/${vim_cmd_mode}}/(main|viins)/${vim_ins_mode}}"
+  zle reset-prompt
+}
+zle -N zle-keymap-select
+
+function zle-line-finish {
+  vim_mode=$vim_ins_mode
+}
+zle -N zle-line-finish
+
+# Fix a bug when you C-c in CMD mode and you'd be prompted with CMD mode indicator, while in fact you would be in INS mode
+# Fixed by catching SIGINT (C-c), set vim_mode to INS and then repropagate the SIGINT, so if anything else depends on it, we will not break it
+function TRAPINT() {
+  vim_mode=$vim_ins_mode
+  return $(( 128 + $1 ))
+} 
+RPROMPT='${vim_mode}'
+
+#Source fzf
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+export PATH=$PATH:~/Desktop/flyConcourse
+export PATH=$PATH:~/Desktop/vault
+export PATH=$PATH:$M2:$PATH
+#Pip3 packages. Exported python path to include
+export PATH="/Library/Frameworks/Python.framework/Versions/3.7/bin:${PATH}"
+#Only to find drift for some reason
+#export PYTHONPATH="/usr/local/lib/python3.7/site-packages"
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/local/bin/vault vault
+export NVM_DIR=~/.nvm
+source $(brew --prefix nvm)/nvm.sh
